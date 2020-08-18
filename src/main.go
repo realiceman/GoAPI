@@ -1,26 +1,19 @@
 package main
 
 import (
+	"GoAPI/src/handlers"
 	"net/http"
 	"os"
 )
 
 func main() {
-	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/users/", handlers.UsersRouter)
+	http.HandleFunc("/users", handlers.UsersRouter)
+	http.HandleFunc("/", handlers.RootHandler)
 	err := http.ListenAndServe(":8087", nil)
 	if err != nil {
 		panic(err.Error())
 		os.Exit(1)
 	}
 
-}
-
-func rootHandler(writer http.ResponseWriter, request *http.Request) {
-	if request.URL.Path != "/" {
-		writer.WriteHeader(http.StatusNotFound)
-		writer.Write([]byte("Asset not found\n"))
-		return
-	}
-  writer.WriteHeader(http.StatusOK)
-	writer.Write([]byte("Running API v1\n"))
 }

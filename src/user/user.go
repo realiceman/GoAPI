@@ -23,7 +23,7 @@ var (
 )
 
 // retrieve all users from the db
-func All([]User, error) ([]User, error) {
+func All() ([]User, error) {
 	db, err := storm.Open(dbPath)
 	if err != nil {
 		return nil, err
